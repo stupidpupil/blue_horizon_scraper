@@ -14,15 +14,19 @@ list_from_blue_horizon_product_json <- function(blue_horizon_product_json){
 
   tags <- blue_horizon_product_json$tags
 
+  image_srcs <- blue_horizon_product_json$images |> purrr::map(\(x) x$src)
 
   venous_available <- dplyr::case_when(
     ("vac" %in% tags) ~ TRUE,
     ("2- Vacutainer Blood Sample" %in% tags) ~ TRUE,
+    (image_srcs |> purrr::some(\(x) x |> stringr::str_detect("\\bvacutainer\\b"))) ~ TRUE, 
     TRUE ~ FALSE
   )
 
   venous_only <- dplyr::case_when(
     ("1- Finger-Prick Blood Sample" %in% tags) ~ FALSE,
+    (image_srcs |> purrr::some(\(x) x |> stringr::str_detect("\\bfinger-prick\\b"))) ~ TRUE, 
+    (image_srcs |> purrr::some(\(x) x |> stringr::str_detect("\\bfingerprick\\b"))) ~ TRUE, 
     venous_available ~ TRUE,
     TRUE ~ NA
   )
@@ -39,7 +43,6 @@ list_from_blue_horizon_product_json <- function(blue_horizon_product_json){
     available = available
   	))
   }
-
 
 	possible_biomarkers <- readr::read_csv("data-raw/biomarkers.csv", col_types="cc")
 
