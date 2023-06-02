@@ -9,7 +9,7 @@ products_to_exchange_format <- function(products){
       !is.na(prod$title) &
       !is.na(prod$handle) &
       !is.na(prod$price_pence) &
-      !is.null(biomarkers)
+      !is.null(prod$biomarkers)
     }) |>
     purrr::map(function(prod){
       prod$id = NULL
