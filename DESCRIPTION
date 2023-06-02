@@ -1,0 +1,22 @@
+Package: BlueHorizonScraper
+Title: BlueHorizonScraper
+Version: 0.0.1
+Authors@R: c(
+  person("Adam", "Watkins", email = "adam@stupidpupil.co.uk", role = c("aut", "cre"))
+  )
+Description: BlueHorizonScraper
+License: GPLv3
+Encoding: UTF-8
+Depends: 
+  R (>= 2.10)
+Imports:
+  dplyr,
+  tidyr,
+  purrr,
+  stringr,
+  httr,
+  readr,
+  rvest,
+  lubridate
+Suggests: 
+  testthat
